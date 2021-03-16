@@ -14,9 +14,8 @@ def main():
 
     cluster = fit_cluster(3, points)
 
-    # print(cluster.cluster_centers_)
-
-    render_3d_scatter_from_dataset(dataset, cluster.predict(points))
+    render_3d_scatter_from_dataset(
+        dataset, cluster.predict(points), cluster.cluster_centers_)
 
 
 main()

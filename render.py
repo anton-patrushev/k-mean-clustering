@@ -37,10 +37,13 @@ def render_3d_scatter(axis, dataset, colors):
     return render_single_3d_scatter(axis, column_E, column_J, column_D, colors)
 
 
-# def render_centroids(axis, )
+def render_centroids(axis, centroids):
+    set_limits(axis)
+    axis.scatter(centroids[:, 0], centroids[:, 1],
+                 centroids[:, 2], c='black', s=100, alpha=1)
 
 
-def render_3d_scatter_from_dataset(dataset, cluster_prediction):
+def render_3d_scatter_from_dataset(dataset, cluster_prediction, cluster_centroids):
     fig, ((cluster_axis, class_1_axis), (class_2_axis, class_3_axis)) = plt.subplots(
         2, 2, subplot_kw=dict(projection='3d'))
 
@@ -52,8 +55,15 @@ def render_3d_scatter_from_dataset(dataset, cluster_prediction):
         consts.DATASET_PATH, consts.QUERY_CLASS_3, consts.COLUMNS)
 
     render_3d_scatter(cluster_axis, dataset, cluster_prediction)
+    render_centroids(class_1_axis, cluster_centroids)
+
     render_3d_scatter(class_1_axis, class_1_dataset, '#1f77b4')
+    render_centroids(class_1_axis, cluster_centroids)
+
     render_3d_scatter(class_2_axis, class_2_dataset, '#ff7f0e')
+    render_centroids(class_2_axis, cluster_centroids)
+
     render_3d_scatter(class_3_axis, class_3_dataset, '#2ca02c')
+    render_centroids(class_3_axis, cluster_centroids)
 
     return plt.show()
